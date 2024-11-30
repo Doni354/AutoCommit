@@ -1,13 +1,12 @@
 name: Auto commit
 
 on:
-
   push:
     branches:
       - master
       
   schedule:
-  - cron: "0 * * * *"  # See https://crontab.guru/#0_7,9,11_*_*_1,3
+    - cron: "0 * * * *"  # Setiap jam
 
 jobs:
   auto_commit:
@@ -15,10 +14,11 @@ jobs:
     steps:
       - name: DEBUG 
         run: echo "::debug::Ref = ${{github.ref}}"
+        
       - uses: actions/checkout@v3      
         with:
-         persist-credentials: false
-         fetch-depth: 0
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Modify last update
         run: |
@@ -31,6 +31,7 @@ jobs:
           git config --local user.name "doni354"
           git add -A
           
+          # Array pesan commit
           arr[0]="😂 auto commit"
           arr[1]="😱 auto commit"
           arr[2]="😊 auto commit"
@@ -60,12 +61,45 @@ jobs:
           arr[26]="🎯 auto commit"
           arr[27]="⚡ auto commit"
           arr[28]="🌍 auto commit"
-          arr[29]="💀 auto commit";
+          arr[29]="💀 auto commit"
+          
+          # Array deskripsi commit yang acak
+          desc[0]="Penghijauan cuyy 🟩"
+          desc[1]="Apa kabar semesta? 🌌"
+          desc[2]="Makan bakso dulu lah 🍜"
+          desc[3]="Kodeku seperti pelangi 🌈"
+          desc[4]="Hujan di hatiku 🌧️"
+          desc[5]="Masih auto commit nih 🔄"
+          desc[6]="Mana kopi gue? ☕"
+          desc[7]="Robot bekerja keras 🤖"
+          desc[8]="Tidur bentar bos 🛌"
+          desc[9]="Gaskeun terus bro! 🚀"
+          desc[10]="Menemani coding malam ✨"
+          desc[11]="Hari yang cerah untuk coding 🌞"
+          desc[12]="Memanggil dewi inspirasi 🧚"
+          desc[13]="Bodo amat yang penting jalan 💪"
+          desc[14]="Error mana error? 🚫"
+          desc[15]="Git push is life 🖤"
+          desc[16]="Kode ini bikin lapar 🍔"
+          desc[17]="Semoga nggak error lagi 🤞"
+          desc[18]="Nggak tau ini buat apa 😶"
+          desc[19]="Go green commit 🌱"
+          desc[20]="Dunia coding nan indah 💻"
+          desc[21]="Yuk mulai dari nol lagi 🌟"
+          desc[22]="Siapa yang baca deskripsi ini? 👀"
+          desc[23]="Apa kabar, bot sebelah? 🤔"
+          desc[24]="Git commit demi kedamaian 🌍"
+          desc[25]="Perjalanan tanpa akhir 🛤️"
+          desc[26]="Bikin kopi sambil commit ☕"
+          desc[27]="Pengen tidur tapi push dulu 💤"
+          desc[28]="Ini auto atau manual? 🤖"
+          desc[29]="Sudah seperti autopilot ✈️"
 
+          # Pilih pesan dan deskripsi secara acak
+          rand=$((RANDOM % ${#arr[@]}))
           
-          rand=$[$RANDOM % ${#arr[@]}]
-          
-          git commit -m "${arr[$rand]}"
+          # Commit dengan nama dan deskripsi
+          git commit -m "${arr[$rand]}" -m "${desc[$rand]}"
           
       - name: GitHub Push
         uses: ad-m/github-push-action@v0.6.0
